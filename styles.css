@@ -1,0 +1,1002 @@
+/* Custom CSS for Student Portal */
+
+/* Basic layout styles */
+html, body {
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Glassmorphism effect */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(31, 38, 135, 0.15);
+}
+
+/* Header styles */
+header {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hide scrollbar for tab navigation */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Tab styles */
+.tab-btn {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: #3b82f6;
+}
+
+.tab-btn:not(.active):hover {
+    color: #4b5563;
+    border-color: #e5e7eb;
+}
+
+/* Tab content */
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Mock image placeholders with grid pattern */
+.mock-image {
+    background-color: #e5e7eb;
+    background-image:
+        linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 10px 10px;
+    border-radius: 0.5rem;
+}
+
+/* Book card styles */
+.book-card {
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateX(5px);
+}
+
+.book-card.borrowed {
+    border-left-color: #3b82f6; /* blue-500 */
+}
+
+.book-card.returned {
+    border-left-color: #10b981; /* emerald-500 */
+}
+
+.book-card.overdue {
+    border-left-color: #ef4444; /* red-500 */
+}
+
+/* Room slot styles */
+.room-slot {
+    transition: all 0.3s ease;
+}
+
+.room-slot.available:hover {
+    transform: scale(1.05);
+}
+
+.room-slot.reserved {
+    background-color: rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+}
+
+.room-slot.available {
+    background-color: rgba(16, 185, 129, 0.2);
+    border-color: #10b981;
+}
+
+/* Equipment card styles */
+.equipment-card {
+    transition: all 0.3s ease;
+}
+
+.equipment-card:hover {
+    transform: translateY(-5px);
+}
+
+.equipment-card.available {
+    border-color: #10b981;
+}
+
+.equipment-card.borrowed {
+    border-color: #3b82f6;
+}
+
+/* Status indicators */
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.status-available {
+    background-color: #10b981; /* emerald-500 */
+}
+
+.status-borrowed {
+    background-color: #3b82f6; /* blue-500 */
+}
+
+.status-overdue {
+    background-color: #ef4444; /* red-500 */
+}
+
+/* Modal animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.modal-fade-in {
+    animation: fadeIn 0.3s forwards;
+}
+
+.modal-fade-out {
+    animation: fadeOut 0.3s forwards;
+}
+
+/* E-book reader specific styles */
+#ebook-reader-container {
+    transition: opacity 0.3s ease-in-out;
+    z-index: 9999; /* Ensure it's above everything else */
+}
+
+#ebook-reader-overlay {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Ensure body doesn't scroll when modal is open */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* Parallax effect for background */
+.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Sidebar styles */
+#sidebar.sidebar-expanded {
+    width: 16rem;
+}
+
+#sidebar.sidebar-expanded .sidebar-logo {
+    opacity: 1;
+    visibility: visible;
+}
+
+#sidebar.sidebar-expanded .sidebar-text {
+    opacity: 1;
+    visibility: visible;
+}
+
+#sidebar.sidebar-collapsed .sidebar-logo {
+    opacity: 1;
+    visibility: visible;
+}
+
+#sidebar.sidebar-collapsed .sidebar-text {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#sidebar-toggle {
+    z-index: 40;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Tooltip removed for simplicity */
+
+#sidebar-toggle:hover .sidebar-icon {
+    filter: invert(60%) sepia(20%) saturate(300%) hue-rotate(190deg) brightness(95%) contrast(90%);
+}
+
+.sidebar-icon {
+    transition: all 0.3s ease;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3b82f6;
+    filter: invert(47%) sepia(82%) saturate(1864%) hue-rotate(202deg) brightness(99%) contrast(96%);
+}
+
+#sidebar.sidebar-collapsed .sidebar-icon {
+    transform: rotate(180deg);
+}
+
+#sidebar.sidebar-collapsed {
+    width: 4rem !important;
+}
+
+#sidebar.sidebar-collapsed .sidebar-logo {
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+#sidebar.sidebar-collapsed .sidebar-text {
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+#sidebar.sidebar-collapsed #sidebar-toggle {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    background-color: transparent;
+    z-index: 50;
+}
+
+#sidebar.sidebar-collapsed .sidebar-content {
+    transform: translateX(-100%);
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+/* Keep border in place */
+#sidebar nav {
+    border-top: 1px solid #e5e7eb;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 80px); /* Adjust based on header height */
+}
+
+/* Header Styles */
+header {
+    --header-height: auto;
+    position: fixed !important; /* Force fixed position */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it's above everything */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+header nav a {
+    position: relative;
+    font-weight: 500;
+}
+
+header nav a:hover {
+    color: #bfdbfe;
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #bfdbfe;
+    transition: width 0.3s ease;
+}
+
+header nav a:hover::after {
+    width: 100%;
+}
+
+/* Sticky section headers */
+.sticky-header {
+    position: relative; /* Changed from sticky to relative to prevent overlap */
+    background-color: white;
+    z-index: 10; /* Lower z-index */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    margin: -1.5rem -1.5rem 1rem -1.5rem; /* Negative margin to extend to edges */
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Replace the current layout system with CSS Grid */
+:root {
+    --sidebar-width: 16rem;
+    --sidebar-collapsed-width: 4rem;
+    --header-height: 120px; /* Main site header height */
+    --content-max-width: 1000px;
+    --content-mobile-max-width: 600px; /* Max width for mobile content when sidebar is hidden */
+    --main-header-offset: 120px; /* Offset for sticky elements to account for main header */
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-top: var(--header-height, 120px); /* Add padding to account for fixed header */
+}
+
+/* Container layout */
+.flex.flex-col.md\\:flex-row {
+    min-height: calc(100vh - var(--header-height));
+    position: relative;
+    width: 100%;
+    display: block;
+}
+
+/* Adjust container for hidden sidebar on mobile */
+body.sidebar-hidden .flex.flex-col.md\\:flex-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Fixed sidebar */
+#sidebar {
+    position: fixed;
+    top: var(--header-height, 120px);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height, 120px));
+    z-index: 40;
+    background-color: white;
+    border-right: 1px solid #e5e7eb;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Main content positioned absolutely and centered */
+main {
+    position: absolute;
+    width: 100%;
+    max-width: var(--content-max-width);
+    padding: 1.5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 0; /* Reset margin since we have padding on body */
+
+    /* Center calculation - starts at 50% of viewport width */
+    left: 50%;
+    /* Offset by half of sidebar width + half of its own width */
+    transform: translateX(calc(-50% + (var(--sidebar-width) / 2)));
+    /* Smooth transition for when sidebar size changes */
+    transition: transform 0.3s ease-in-out, left 0.3s ease-in-out, max-width 0.3s ease-in-out;
+
+    /* Center content within available space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Adjust position when sidebar is collapsed */
+#sidebar.sidebar-collapsed ~ main {
+    transform: translateX(calc(-50% + (var(--sidebar-collapsed-width) / 2)));
+}
+
+/* Make content take full width of the container */
+main > * {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ensure tab content is centered */
+main .tab-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ensure sections take full width */
+main .tab-content section {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Center content cards */
+main .tab-content .bg-white {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ensure hidden tabs remain hidden */
+main .tab-content .tab-pane.hidden {
+    display: none !important;
+}
+
+/* Ensure active tabs are visible */
+main .tab-content .tab-pane.active {
+    display: flex !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Mobile view - sidebar always collapsed */
+    main {
+        position: absolute;
+        max-width: calc(100% - var(--sidebar-collapsed-width) - 1rem);
+        padding: 1rem;
+        /* Mobile positioning - centered approach */
+        left: 50%;
+        transform: translateX(calc(-50% + (var(--sidebar-collapsed-width) / 2)));
+        margin-left: 0;
+        margin-right: 0;
+
+        /* Center content within available space */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Ensure content is centered within main container on mobile */
+    main .tab-content {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Ensure sections are centered and take full width */
+    main .tab-content section {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Center content cards on mobile */
+    main .tab-content .bg-white {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Ensure hidden tabs remain hidden on mobile */
+    main .tab-content .tab-pane.hidden {
+        display: none !important;
+    }
+
+    /* Ensure active tabs are visible on mobile */
+    main .tab-content .tab-pane.active {
+        display: flex !important;
+    }
+
+    #sidebar {
+        width: var(--sidebar-collapsed-width) !important; /* Force collapsed state on mobile */
+    }
+
+    /* Hide sidebar expand/collapse functionality on mobile */
+    #sidebar.sidebar-expanded {
+        width: var(--sidebar-collapsed-width) !important; /* Force collapsed state */
+    }
+
+    /* Hide sidebar text on mobile regardless of state */
+    #sidebar .sidebar-text {
+        display: none !important;
+    }
+
+    /* Ensure this rule only applies to mobile */
+    @media (min-width: 769px) {
+        #sidebar.sidebar-expanded .sidebar-text {
+            display: inline-block !important;
+        }
+    }
+
+    /* Center icons in sidebar on mobile */
+    #sidebar .tab-btn i,
+    #sidebar #logout-btn i,
+    #sidebar #help-center-btn i,
+    #sidebar #library-hours-btn i {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    /* Adjust buttons in sidebar for mobile */
+    #sidebar .tab-btn,
+    #sidebar #logout-btn,
+    #sidebar #help-center-btn,
+    #sidebar #library-hours-btn {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        justify-content: center !important;
+    }
+
+    /* Hide sidebar toggle on mobile */
+    #sidebar-toggle {
+        display: none !important;
+    }
+
+    /* Full width when sidebar is hidden on mobile */
+    body.sidebar-hidden #sidebar {
+        width: 0 !important;
+        overflow: hidden;
+        visibility: hidden;
+        opacity: 0;
+        transition: width 0.3s ease-in-out, visibility 0.3s, opacity 0.3s;
+    }
+
+    /* Center content when sidebar is hidden */
+    body.sidebar-hidden main {
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: var(--content-mobile-max-width) !important; /* Use the mobile content max width */
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Ensure content is centered when sidebar is hidden */
+    body.sidebar-hidden main .tab-content,
+    body.sidebar-hidden main .tab-content section.active,
+    body.sidebar-hidden main .tab-content .bg-white {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Ensure hidden tabs remain hidden when sidebar is hidden */
+    body.sidebar-hidden main .tab-content section.hidden {
+        display: none !important;
+    }
+    /* Improve readability and layout when sidebar is hidden */
+    body.sidebar-hidden .bg-white {
+        width: 100% !important;
+    }
+
+    body.sidebar-hidden .tab-pane {
+        display: block;
+        width: 100%;
+    }
+
+    body.sidebar-hidden .rounded-xl {
+        border-radius: 0.5rem !important;
+    }
+
+    /* Mobile sidebar toggle button */
+    #mobile-sidebar-toggle {
+        transition: all 0.3s ease;
+        animation: fadeIn 0.3s forwards;
+    }
+
+    #mobile-sidebar-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Improve mobile content layout */
+    body.sidebar-hidden .tab-content {
+        width: 100%;
+    }
+}
+
+/* Adjust card layouts for better mobile display */
+@media (max-width: 640px) {
+    body.sidebar-hidden .grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    body.sidebar-hidden .overflow-x-auto {
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        width: calc(100% + 2rem);
+    }
+
+    /* Ensure content max-width is appropriate for small screens */
+    body.sidebar-hidden main {
+        max-width: 100% !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+
+    /* Adjust card padding for better readability on small screens */
+    body.sidebar-hidden .bg-white {
+        padding: 1rem !important;
+    }
+
+    /* Ensure proper centering on very small screens */
+    main {
+        max-width: calc(100% - var(--sidebar-collapsed-width)) !important;
+    }
+
+    main .tab-content,
+    main .tab-content section.active,
+    main .tab-content .bg-white {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    /* Ensure hidden tabs remain hidden on small screens */
+    main .tab-content section.hidden {
+        display: none !important;
+    }
+}
+
+/* Make text more readable on small screens */
+@media (max-width: 640px) {
+    .text-xl {
+        font-size: 1.1rem !important;
+    }
+
+    .text-sm {
+        font-size: 0.8rem !important;
+    }
+
+    /* Improve form elements on small screens */
+    input, select, textarea, button {
+        font-size: 16px !important; /* Prevent zoom on iOS */
+    }
+
+    /* Adjust spacing for better mobile readability */
+    .p-6 {
+        padding: 1rem !important;
+    }
+
+    .space-y-3 > * + * {
+        margin-top: 0.5rem !important;
+    }
+
+    /* Make tables more readable on small screens */
+    table {
+        font-size: 0.8rem !important;
+    }
+
+    th, td {
+        padding: 0.5rem !important;
+    }
+}
+
+/* Fix for sidebar content visibility when collapsed */
+#sidebar.sidebar-collapsed .sidebar-content {
+        transform: none;
+    position: relative;
+}
+
+/* Logo and sidebar enhancements */
+.sidebar-logo,
+.sidebar-logo div {
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for the logo */
+.sidebar-logo:hover div {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions for sidebar links */
+.sidebar-text {
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    white-space: nowrap;
+    width: auto;
+}
+
+#sidebar.sidebar-collapsed .sidebar-text {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#sidebar.sidebar-expanded .sidebar-text {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+
+/* Simplify sidebar content transitions */
+.sidebar-content {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateX(0);
+}
+
+/* Logout button styling */
+#logout-btn {
+    transition: all 0.3s ease;
+}
+
+#logout-btn:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Sidebar Collapsed/Expanded States */
+
+/* Expanded View */
+.sidebar-expanded-view {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Collapsed View */
+.sidebar-collapsed-view {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Show/Hide logic for sidebar states */
+#sidebar.sidebar-collapsed .sidebar-expanded-view {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+#sidebar.sidebar-collapsed .sidebar-collapsed-view {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+/* Sidebar styles */
+#sidebar.sidebar-expanded {
+    width: var(--sidebar-width);
+}
+
+#sidebar.sidebar-collapsed {
+    width: var(--sidebar-collapsed-width) !important;
+}
+
+/* Override mobile styles when on desktop */
+@media (min-width: 769px) {
+    #sidebar.sidebar-expanded {
+        width: var(--sidebar-width) !important;
+    }
+}
+
+/* Prevent layout shifts */
+#sidebar .p-4 {
+    min-height: 4rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#sidebar nav {
+    border-top: 1px solid #e5e7eb;
+    margin-top: 0;
+    padding-top: 1rem;
+}
+
+/* Fix for collapsed sidebar content */
+#sidebar.sidebar-collapsed .sidebar-text {
+    display: none;
+}
+
+/* Ensure sidebar text is visible in expanded state on desktop */
+@media (min-width: 769px) {
+    #sidebar.sidebar-expanded .sidebar-text {
+        display: inline-block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+/* Keep the icons visible in collapsed state */
+#sidebar.sidebar-collapsed .tab-btn i,
+#sidebar.sidebar-collapsed #logout-btn i,
+#sidebar.sidebar-collapsed #help-center-btn i,
+#sidebar.sidebar-collapsed #library-hours-btn i {
+    margin-right: 0;
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* Make link transitions smoother */
+#sidebar .tab-btn,
+#sidebar #logout-btn,
+#sidebar #help-center-btn,
+#sidebar #library-hours-btn {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+/* Adjust width of links in collapsed state to keep centered */
+#sidebar.sidebar-collapsed .tab-btn,
+#sidebar.sidebar-collapsed #logout-btn,
+#sidebar.sidebar-collapsed #help-center-btn,
+#sidebar.sidebar-collapsed #library-hours-btn {
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: center;
+}
+
+/* Prevent layout shifts during transition */
+#sidebar nav ul li {
+    transition: padding 0.3s ease;
+}
+
+/* Fix for sidebar badges */
+#sidebar .tab-btn .ml-auto {
+    transition: opacity 0.3s ease, margin 0.3s ease;
+}
+
+#sidebar.sidebar-collapsed .tab-btn .ml-auto {
+    opacity: 0;
+    margin-left: 0;
+    position: absolute;
+}
+
+/* Sidebar link alignment adjustments */
+/* Left-align links in expanded state with small indent */
+#sidebar.sidebar-expanded .tab-btn,
+#sidebar.sidebar-expanded #logout-btn,
+#sidebar.sidebar-expanded #help-center-btn,
+#sidebar.sidebar-expanded #library-hours-btn {
+    justify-content: flex-start;
+    padding-left: 0.5rem;
+    text-align: left;
+}
+
+/* Left-align the QUICK LINKS header */
+#sidebar.sidebar-expanded h3.text-xs.uppercase {
+    text-align: left;
+    padding-left: 0.5rem;
+}
+
+/* Keep icons centered in collapsed state */
+#sidebar.sidebar-collapsed .tab-btn,
+#sidebar.sidebar-collapsed #logout-btn,
+#sidebar.sidebar-collapsed #help-center-btn,
+#sidebar.sidebar-collapsed #library-hours-btn {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+/* Ensure badges remain on the right */
+#sidebar .tab-btn .ml-auto,
+#sidebar #notifications-btn .ml-auto {
+    margin-left: auto !important;
+}
+
+/* Fix for sidebar link alignment */
+/* Target individual elements within the sidebar buttons for proper left alignment */
+
+/* Override text-center on icons in expanded state */
+#sidebar.sidebar-expanded .tab-btn i,
+#sidebar.sidebar-expanded #logout-btn i,
+#sidebar.sidebar-expanded #help-center-btn i,
+#sidebar.sidebar-expanded #library-hours-btn i {
+    text-align: left !important;
+    margin-left: 0.25rem !important;
+    width: auto !important;
+}
+
+/* Adjust sidebar text spacing */
+#sidebar.sidebar-expanded .sidebar-text {
+    margin-left: 0.75rem !important;
+}
+
+/* Make buttons fully left-aligned in expanded state */
+#sidebar.sidebar-expanded .tab-btn,
+#sidebar.sidebar-expanded #logout-btn,
+#sidebar.sidebar-expanded #help-center-btn,
+#sidebar.sidebar-expanded #library-hours-btn {
+    padding-left: 0.5rem !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+}
+
+/* Fix Quick Links header left alignment */
+#sidebar.sidebar-expanded h3.text-xs.uppercase {
+    text-align: left !important;
+    padding-left: 0.75rem !important;
+    margin-left: 0 !important;
+}
+
+/* Fix for badges to stay on right side */
+#sidebar.sidebar-expanded .tab-btn .ml-auto,
+#sidebar.sidebar-expanded #tab-notifications .ml-auto {
+    margin-left: auto !important;
+}
+
+/* Maintain centered icons in collapsed state */
+#sidebar.sidebar-collapsed .tab-btn i,
+#sidebar.sidebar-collapsed #logout-btn i,
+#sidebar.sidebar-collapsed #help-center-btn i,
+#sidebar.sidebar-collapsed #library-hours-btn i {
+    text-align: center !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+/* Remove specific left-alignment properties in collapsed state */
+#sidebar.sidebar-collapsed .tab-btn,
+#sidebar.sidebar-collapsed #logout-btn,
+#sidebar.sidebar-collapsed #help-center-btn,
+#sidebar.sidebar-collapsed #library-hours-btn {
+    justify-content: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
