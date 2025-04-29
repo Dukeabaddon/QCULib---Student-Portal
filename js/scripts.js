@@ -320,6 +320,16 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.paddingTop = updatedHeaderHeight + 'px';
         }
     });
+
+    // Setup event listeners for tab switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const tabId = this.id.replace('tab-', '');
+            switchTab(tabId);
+        });
+    });
 });
 
 // Initialize sticky headers
@@ -1191,7 +1201,7 @@ function openModal(modal) {
         }
     };
 
-    // Remove any existing escape key listeners first
+    // Remove any existing escape key listeners
     document.removeEventListener('keydown', escapeListener);
     // Add new escape key listener
     document.addEventListener('keydown', escapeListener);
@@ -2191,7 +2201,9 @@ function showRoomReservationSuccess(date, time, attendeesCount) {
         void successModal.offsetWidth;
 
         // Add animation class
-        successModal.classList.add('modal-fade-in');
+        setTimeout(() => {
+            successModal.classList.add('modal-fade-in');
+        }, 10);
 
         console.log("Success modal displayed");
     } else {
@@ -2305,87 +2317,121 @@ function setupEventListeners() {
 
             // Remove active class from all buttons
             tabButtons.forEach(btn => {
-                btn.classList.remove('active');
-                btn.classList.remove('text-blue-600');
-                btn.classList.remove('bg-blue-50');
-                btn.classList.remove('border-blue-500');
-                btn.classList.add('text-gray-600');
-                btn.classList.add('border-transparent');
+                btn.classList.remove('active', 'text-blue-600', 'bg-blue-50', 'border-blue-500');
+                btn.classList.add('text-gray-600', 'border-transparent');
             });
 
-            // Add active class to clicked button
-            button.classList.add('active');
-            button.classList.add('text-blue-600');
-            button.classList.add('bg-blue-50');
-            button.classList.add('border-blue-500');
-            button.classList.remove('text-gray-600');
-            button.classList.remove('border-transparent');
+            let button;
 
-            // Close the Books accordion if we're switching to a non-book tab
-            const tabId = button.id.replace('tab-', '');
-            if (tabId !== 'books' && tabId !== 'physical-books' && tabId !== 'ebooks') {
-                // Close the accordion content
-                const accordionContent = document.querySelector('.accordion-content');
-                const booksAccordionBtn = document.getElementById('books-accordion-btn');
-
-                if (accordionContent && !accordionContent.classList.contains('hidden')) {
-                    accordionContent.classList.add('hidden');
-
-                    // Reset the chevron icon
-                    const chevronIcon = booksAccordionBtn ? booksAccordionBtn.querySelector('.fa-chevron-down') : null;
-                    if (chevronIcon) {
-                        chevronIcon.style.transform = 'rotate(0deg)';
-                    }
-
-                    // Reset the accordion header styling
-                    if (booksAccordionBtn) {
-                        booksAccordionBtn.classList.remove('text-blue-600');
-                        booksAccordionBtn.classList.remove('border-blue-500');
-                        booksAccordionBtn.classList.add('text-gray-600');
-                        booksAccordionBtn.classList.add('border-transparent');
-                    }
-                }
-
-                // Reset book tabs
+            // Handle book types
+            if (tabId === 'books' && subType) {
                 const ebooksTab = document.getElementById('tab-ebooks');
                 const physicalBooksTab = document.getElementById('tab-physical-books');
+                [ebooksTab, physicalBooksTab].forEach(tab => {
+                    if (tab) {
+                        tab.classList.remove('active', 'text-blue-600', 'bg-blue-50', 'border-blue-500');
+                        tab.classList.add('text-gray-600', 'border-transparent');
+                    }
+                });
+                button = subType === 'ebook' ? ebooksTab : physicalBooksTab;
 
-                if (ebooksTab) {
-                    ebooksTab.classList.remove('active');
-                    ebooksTab.classList.remove('text-blue-600');
-                    ebooksTab.classList.remove('bg-blue-50');
-                    ebooksTab.classList.remove('border-blue-500');
-                    ebooksTab.classList.add('text-gray-600');
-                    ebooksTab.classList.add('border-transparent');
+                // Expand accordion header and content
+                const accordionContent = document.querySelector('#books-accordion-btn + .accordion-content');
+                const accordionHeader = document.getElementById('books-accordion-btn');
+                const chevronIcon = accordionHeader.querySelector('.fa-chevron-down');
+
+                if (accordionContent.classList.contains('hidden')) {
+                    accordionContent.classList.remove('hidden');
+                    chevronIcon.style.transform = 'rotate(180deg)';
+                }
+                accordionHeader.classList.add('text-blue-600', 'border-blue-500');
+                accordionHeader.classList.remove('text-gray-600', 'border-transparent');
+            }
+            // Handle equipment types
+            else if (tabId === 'equipment' && subType) {
+                const myEquipmentTab = document.getElementById('tab-my-equipment');
+                const borrowEquipmentTab = document.getElementById('tab-borrow-equipment');
+                [myEquipmentTab, borrowEquipmentTab].forEach(tab => {
+                    if (tab) {
+                        tab.classList.remove('active', 'text-blue-600', 'bg-blue-50', 'border-blue-500');
+                        tab.classList.add('text-gray-600', 'border-transparent');
+                    }
+                });
+                button = subType === 'borrowed' ? myEquipmentTab : borrowEquipmentTab;
+
+                // Show/hide content sections
+                const myContent = document.getElementById('my-equipment-content');
+                const borrowContent = document.getElementById('borrow-equipment-content');
+                if (subType === 'borrowed') {
+                    myContent?.classList.remove('hidden');
+                    borrowContent?.classList.add('hidden');
+                } else {
+                    myContent?.classList.add('hidden');
+                    borrowContent?.classList.remove('hidden');
                 }
 
-                if (physicalBooksTab) {
-                    physicalBooksTab.classList.remove('active');
-                    physicalBooksTab.classList.remove('text-blue-600');
-                    physicalBooksTab.classList.remove('bg-blue-50');
-                    physicalBooksTab.classList.remove('border-blue-500');
-                    physicalBooksTab.classList.add('text-gray-600');
-                    physicalBooksTab.classList.add('border-transparent');
+                // Expand accordion
+                const accContent = document.querySelector('#equipment-accordion-btn + .accordion-content');
+                const accHeader = document.getElementById('equipment-accordion-btn');
+                const accChevron = accHeader.querySelector('.fa-chevron-down');
+                if (accContent && accContent.classList.contains('hidden')) {
+                    accContent.classList.remove('hidden');
+                    accChevron.style.transform = 'rotate(180deg)';
+                }
+                accHeader.classList.add('text-blue-600', 'border-blue-500');
+                accHeader.classList.remove('text-gray-600', 'border-transparent');
+            } else {
+                button = document.getElementById('tab-' + tabId);
+            }
+
+            if (button) {
+                button.classList.add('active', 'text-blue-600', 'bg-blue-50', 'border-blue-500');
+                button.classList.remove('text-gray-600', 'border-transparent');
+            }
+
+            // Reset other accordions when switching away
+            if (tabId !== 'books') {
+                const btn = document.getElementById('books-accordion-btn');
+                const cont = document.querySelector('#books-accordion-btn + .accordion-content');
+                const ch = btn?.querySelector('.fa-chevron-down');
+                if (btn && cont && !cont.classList.contains('hidden')) {
+                    btn.classList.remove('text-blue-600', 'border-blue-500');
+                    btn.classList.add('text-gray-600', 'border-transparent');
+                    cont.classList.add('hidden');
+                    if (ch) ch.style.transform = 'rotate(0deg)';
+                }
+            }
+            if (tabId !== 'equipment') {
+                const btn = document.getElementById('equipment-accordion-btn');
+                const cont = document.querySelector('#equipment-accordion-btn + .accordion-content');
+                const ch = btn?.querySelector('.fa-chevron-down');
+                if (btn && cont && !cont.classList.contains('hidden')) {
+                    btn.classList.remove('text-blue-600', 'border-blue-500');
+                    btn.classList.add('text-gray-600', 'border-transparent');
+                    cont.classList.add('hidden');
+                    if (ch) ch.style.transform = 'rotate(0deg)';
                 }
             }
 
             // Hide all tab panes
-            tabPanes.forEach(pane => {
+            document.querySelectorAll('.tab-pane').forEach(pane => {
                 pane.classList.add('hidden');
                 pane.classList.remove('active');
             });
 
             // Show the corresponding tab pane
-            const tabPane = document.getElementById(`${tabId}-content`);
-            console.log(`Looking for tab pane: ${tabId}-content, found:`, tabPane ? 'yes' : 'no');
-
-            if (tabPane) {
-                tabPane.classList.remove('hidden');
-                tabPane.classList.add('active');
-                console.log(`Tab pane ${tabId}-content is now active`);
+            const pane = document.getElementById(tabId + '-content');
+            if (pane) {
+                pane.classList.remove('hidden');
+                pane.classList.add('active');
+                console.log('Switched to tab:', tabId);
+                if (tabId === 'books' && typeof window.filterAndSortBooks === 'function') {
+                    window.filterAndSortBooks(subType);
+                }
+                if (typeof window.initStickyHeaders === 'function') {
+                    setTimeout(window.initStickyHeaders, 0);
+                }
             }
-
-            return false;
         };
     });
 
@@ -2813,3 +2859,128 @@ function saveEbookOffline(bookId) {
 }
 // Expose to global scope
 window.saveEbookOffline = saveEbookOffline;
+
+// Initialize tab switching
+function switchTab(tabId, subType) {
+    console.log('Tab switching to:', tabId, subType ? 'with subType: ' + subType : '');
+
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'text-blue-600', 'bg-blue-50', 'border-blue-500');
+        btn.classList.add('text-gray-600', 'border-transparent');
+    });
+
+    let button;
+
+    // Handle book types
+    if (tabId === 'books' && subType) {
+        const ebooksTab = document.getElementById('tab-ebooks');
+        const physicalBooksTab = document.getElementById('tab-physical-books');
+        [ebooksTab, physicalBooksTab].forEach(tab => {
+            if (tab) {
+                tab.classList.remove('active', 'text-blue-600', 'bg-blue-50', 'border-blue-500');
+                tab.classList.add('text-gray-600', 'border-transparent');
+            }
+        });
+        button = subType === 'ebook' ? ebooksTab : physicalBooksTab;
+
+        // Expand accordion header and content
+        const accordionContent = document.querySelector('#books-accordion-btn + .accordion-content');
+        const accordionHeader = document.getElementById('books-accordion-btn');
+        const chevronIcon = accordionHeader.querySelector('.fa-chevron-down');
+
+        if (accordionContent.classList.contains('hidden')) {
+            accordionContent.classList.remove('hidden');
+            chevronIcon.style.transform = 'rotate(180deg)';
+        }
+        accordionHeader.classList.add('text-blue-600', 'border-blue-500');
+        accordionHeader.classList.remove('text-gray-600', 'border-transparent');
+    }
+    // Handle equipment types
+    else if (tabId === 'equipment' && subType) {
+        const myEquipmentTab = document.getElementById('tab-my-equipment');
+        const borrowEquipmentTab = document.getElementById('tab-borrow-equipment');
+        [myEquipmentTab, borrowEquipmentTab].forEach(tab => {
+            if (tab) {
+                tab.classList.remove('active', 'text-blue-600', 'bg-blue-50', 'border-blue-500');
+                tab.classList.add('text-gray-600', 'border-transparent');
+            }
+        });
+        button = subType === 'borrowed' ? myEquipmentTab : borrowEquipmentTab;
+
+        // Show/hide content sections
+        const myContent = document.getElementById('my-equipment-content');
+        const borrowContent = document.getElementById('borrow-equipment-content');
+        if (subType === 'borrowed') {
+            myContent?.classList.remove('hidden');
+            borrowContent?.classList.add('hidden');
+        } else {
+            myContent?.classList.add('hidden');
+            borrowContent?.classList.remove('hidden');
+        }
+
+        // Expand accordion
+        const accContent = document.querySelector('#equipment-accordion-btn + .accordion-content');
+        const accHeader = document.getElementById('equipment-accordion-btn');
+        const accChevron = accHeader.querySelector('.fa-chevron-down');
+        if (accContent && accContent.classList.contains('hidden')) {
+            accContent.classList.remove('hidden');
+            accChevron.style.transform = 'rotate(180deg)';
+        }
+        accHeader.classList.add('text-blue-600', 'border-blue-500');
+        accHeader.classList.remove('text-gray-600', 'border-transparent');
+    } else {
+        button = document.getElementById('tab-' + tabId);
+    }
+
+    if (button) {
+        button.classList.add('active', 'text-blue-600', 'bg-blue-50', 'border-blue-500');
+        button.classList.remove('text-gray-600', 'border-transparent');
+    }
+
+    // Reset other accordions when switching away
+    if (tabId !== 'books') {
+        const btn = document.getElementById('books-accordion-btn');
+        const cont = document.querySelector('#books-accordion-btn + .accordion-content');
+        const ch = btn?.querySelector('.fa-chevron-down');
+        if (btn && cont && !cont.classList.contains('hidden')) {
+            btn.classList.remove('text-blue-600', 'border-blue-500');
+            btn.classList.add('text-gray-600', 'border-transparent');
+            cont.classList.add('hidden');
+            if (ch) ch.style.transform = 'rotate(0deg)';
+        }
+    }
+    if (tabId !== 'equipment') {
+        const btn = document.getElementById('equipment-accordion-btn');
+        const cont = document.querySelector('#equipment-accordion-btn + .accordion-content');
+        const ch = btn?.querySelector('.fa-chevron-down');
+        if (btn && cont && !cont.classList.contains('hidden')) {
+            btn.classList.remove('text-blue-600', 'border-blue-500');
+            btn.classList.add('text-gray-600', 'border-transparent');
+            cont.classList.add('hidden');
+            if (ch) ch.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    // Hide all tab panes
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.add('hidden');
+        pane.classList.remove('active');
+    });
+
+    // Show the corresponding tab pane
+    const pane = document.getElementById(tabId + '-content');
+    if (pane) {
+        pane.classList.remove('hidden');
+        pane.classList.add('active');
+        console.log('Switched to tab:', tabId);
+        if (tabId === 'books' && typeof window.filterAndSortBooks === 'function') {
+            window.filterAndSortBooks(subType);
+        }
+        if (typeof window.initStickyHeaders === 'function') {
+            setTimeout(window.initStickyHeaders, 0);
+        }
+    }
+}
+// Expose to global scope
+window.switchTab = switchTab;

@@ -85,19 +85,19 @@ function switchTab(tabId, subType) {
         const ch = btn.querySelector('.fa-chevron-down');
         btn.classList.remove('text-blue-600', 'border-blue-500');
         btn.classList.add('text-gray-600', 'border-transparent');
-        if (!cont.classList.contains('hidden')) {
+        if (cont && !cont.classList.contains('hidden')) {
             cont.classList.add('hidden');
             ch.style.transform = 'rotate(0deg)';
         }
     }
     if (tabId !== 'equipment') {
         const btn = document.getElementById('equipment-accordion-btn');
-        const cont = document.querySelector('#equipment-accordion-btn + .accordion-content');
+        const equipmentAccordionContent = document.querySelector('#equipment-accordion-btn + .accordion-content');
         const ch = btn.querySelector('.fa-chevron-down');
         btn.classList.remove('text-blue-600', 'border-blue-500');
         btn.classList.add('text-gray-600', 'border-transparent');
-        if (!cont.classList.contains('hidden')) {
-            cont.classList.add('hidden');
+        if (equipmentAccordionContent && !equipmentAccordionContent.classList.contains('hidden')) {
+            equipmentAccordionContent.classList.add('hidden');
             ch.style.transform = 'rotate(0deg)';
         }
     }
@@ -235,4 +235,4 @@ document.addEventListener('DOMContentLoaded', function() {
         const toggle = document.getElementById('mobile-sidebar-toggle');
         if (toggle) toggle.style.display = document.body.classList.contains('sidebar-hidden') ? 'flex' : 'none';
     });
-}); 
+});

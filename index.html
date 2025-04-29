@@ -27,20 +27,20 @@
     <script src="js/ui-controller.js" defer></script>
 
     <!-- QCULib Header -->
-    <header class="bg-[#004e98] text-white z-50 shadow-md">
+    <header class="bg-[#004e98]">
         <!-- Top section with logo and search -->
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <!-- Logo -->
-            <div class="flex items-center">
-                <img src="assets/logo.png" alt="QCULib Logo" class="h-10 mr-2">
-                <span class="font-bold text-xl text-white">QCULib</span>
+        <div class="container mx-auto flex items-center justify-between py-3 px-4">
+            <!-- Logo with exact spacing -->
+            <div class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="QCULib Logo" class="h-9">
+                <span class="font-bold text-xl text-white ml-1">QCULib</span>
             </div>
 
-            <!-- Search Bar -->
-            <div class="hidden md:flex flex-1 max-w-md mx-8">
+            <!-- Search Bar with exact padding/margin from image -->
+            <div class="flex-1 max-w-md mx-8">
                 <div class="relative w-full">
-                    <input type="text" placeholder="Search books, authors, subjects..."
-                           class="w-full py-2 px-4 pr-12 rounded-full text-gray-800 focus:outline-none border-0 focus:ring-2 focus:ring-blue-300 transition-all duration-200">
+                    <input type="text" placeholder="Search books, authors, subjects..." 
+                           class="w-full py-2 px-4 rounded-full text-gray-800 border-0 focus:outline-none">
                     <button class="absolute right-0 top-0 h-full px-4 bg-[#ff5252] text-white rounded-r-full hover:bg-red-600 transition-all duration-200 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -49,46 +49,26 @@
                 </div>
             </div>
 
-            <!-- User Profile -->
-            <div class="w-10 h-10 bg-[#ff5252] rounded-full flex items-center justify-center text-white font-bold cursor-pointer hover:bg-red-600 transition-all duration-200 hover:scale-105 shadow-md">
-                <span>PA</span> <!--show the first initial of the user lastname and firstname on login-->
-            </div>
+            <!-- Login Button with exact styling from image -->
+            <button id="login-button" class="bg-[#ff5252] text-white py-1.5 px-5 rounded-full hover:bg-red-600 transition-all duration-200 flex items-center">
+                <span class="font-medium mr-1">Login</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+            </button>
         </div>
 
-        <!-- Bottom section with navigation -->
-        <div class="border-t border-blue-800">
-            <nav class="container mx-auto flex justify-center md:justify-start space-x-8 px-4">
-                <a href="#" class="text-white py-3 hover:text-blue-200 transition-all duration-200 border-b-2 border-transparent hover:border-blue-200 font-medium">Home</a>
-                <a href="#" class="text-white py-3 hover:text-blue-200 transition-all duration-200 border-b-2 border-transparent hover:border-blue-200 font-medium">Catalog</a>
-                <a href="#" class="text-white py-3 hover:text-blue-200 transition-all duration-200 border-b-2 border-transparent hover:border-blue-200 font-medium">Services</a>
-                <a href="#" class="text-white py-3 hover:text-blue-200 transition-all duration-200 border-b-2 border-transparent hover:border-blue-200 font-medium">Branches</a>
-                <a href="#" class="text-white py-3 hover:text-blue-200 transition-all duration-200 border-b-2 border-transparent hover:border-blue-200 font-medium">About Us</a>
-                <a href="#" class="text-white py-3 hover:text-blue-200 transition-all duration-200 border-b-2 border-transparent hover:border-blue-200 font-medium">FAQ</a>
-            </nav>
-        </div>
-
-        <!-- Mobile Search Bar (Hidden by default) -->
-        <div class="md:hidden hidden px-4 py-2 bg-blue-900">
-            <div class="relative w-full">
-                <input type="text" placeholder="Search books, authors, subjects..."
-                       class="w-full py-2 px-4 pr-12 rounded-full text-gray-800 focus:outline-none border-0 focus:ring-2 focus:ring-blue-300">
-                <button class="absolute right-0 top-0 h-full px-4 bg-[#ff5252] text-white rounded-r-full hover:bg-red-600 transition-all duration-200 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation (Hidden by default) -->
-        <nav class="md:hidden hidden bg-blue-900 px-4 py-2">
-            <div class="flex flex-col space-y-2">
-                <a href="#" class="text-white hover:text-blue-200 py-2 transition-all duration-200 border-l-2 border-transparent hover:border-blue-200 hover:pl-2">Home</a>
-                <a href="#" class="text-white hover:text-blue-200 py-2 transition-all duration-200 border-l-2 border-transparent hover:border-blue-200 hover:pl-2">Catalog</a>
-                <a href="#" class="text-white hover:text-blue-200 py-2 transition-all duration-200 border-l-2 border-transparent hover:border-blue-200 hover:pl-2">Services</a>
-                <a href="#" class="text-white hover:text-blue-200 py-2 transition-all duration-200 border-l-2 border-transparent hover:border-blue-200 hover:pl-2">Branches</a>
-                <a href="#" class="text-white hover:text-blue-200 py-2 transition-all duration-200 border-l-2 border-transparent hover:border-blue-200 hover:pl-2">About Us</a>
-                <a href="#" class="text-white hover:text-blue-200 py-2 transition-all duration-200 border-l-2 border-transparent hover:border-blue-200 hover:pl-2">FAQ</a>
+        <!-- Navigation Bar with exactly matching styling -->
+        <nav class="bg-[#004e98] border-t border-[rgba(255,255,255,0.1)]">
+            <div class="container mx-auto">
+                <div class="flex">
+                    <a href="#" class="text-white py-3 px-5 hover:bg-[rgba(255,255,255,0.1)] transition-all duration-200 font-medium">Home</a>
+                    <a href="#" class="text-white py-3 px-5 hover:bg-[rgba(255,255,255,0.1)] transition-all duration-200 font-medium">Catalog</a>
+                    <a href="#" class="text-white py-3 px-5 hover:bg-[rgba(255,255,255,0.1)] transition-all duration-200 font-medium">Services</a>
+                    <a href="#" class="text-white py-3 px-5 hover:bg-[rgba(255,255,255,0.1)] transition-all duration-200 font-medium">Branches</a>
+                    <a href="#" class="text-white py-3 px-5 hover:bg-[rgba(255,255,255,0.1)] transition-all duration-200 font-medium">About Us</a>
+                    <a href="#" class="text-white py-3 px-5 hover:bg-[rgba(255,255,255,0.1)] transition-all duration-200 font-medium">FAQ</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -285,7 +265,7 @@
                                 <ol class="list-decimal pl-5 space-y-2">
                                     <li>Meeting rooms are available for groups of 5-10 students only.</li>
                                     <li>Reservations can be made up to 2 weeks in advance.</li>
-                                    <li>Each reservation is for a maximum of 2 hours.</li>
+                                    <li>Each reservation is for a maximum of 1 hour.</li>
                                     <li>The primary student making the reservation must be present during the entire reservation period.</li>
                                     <li>Food and drinks are not allowed in the meeting rooms, except for bottled water.</li>
                                     <li>The room must be left in the same condition as it was found.</li>
